@@ -41,22 +41,25 @@ func Quant(src image.Image, colors []Point) (image.Image, error) {
 
 		l := int64(len(bucket))
 		colors[i] = Point{
-			Red:   uint32((sumRed / l) >> 8),
+			Red:   uint32((sumRed / l) >> 8 ),
 			Green: uint32((sumGreen / l) >> 8),
 			Blue:  uint32((sumBlue / l) >> 8),
 		}
 
 		colorPalette[i] = color.NRGBA64{
-			R: uint16(sumRed/l) >> 8,
-			G: uint16(sumGreen/l) >> 8,
-			B: uint16(sumBlue/l) >> 8,
-			A: 1,
+			R: uint16(sumRed/l),
+			G: uint16(sumGreen/l),
+			B: uint16(sumBlue/l),
+			A: 0xffff,
 		}
+
 
 		for _, p := range bucket {
 			paletted.SetColorIndex(p.x, p.y, uint8(i))
 		}
 	}
+
+
 
 	return paletted.SubImage(
 		image.Rectangle{
