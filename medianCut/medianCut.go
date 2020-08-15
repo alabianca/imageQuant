@@ -41,15 +41,15 @@ func Quant(src image.Image, colors []Point) (image.Image, error) {
 
 		l := int64(len(bucket))
 		colors[i] = Point{
-			Red:   uint32(sumRed / l),
-			Green: uint32(sumGreen / l),
-			Blue:  uint32(sumBlue / l),
+			Red:   uint32((sumRed / l) >> 8),
+			Green: uint32((sumGreen / l) >> 8),
+			Blue:  uint32((sumBlue / l) >> 8),
 		}
 
 		colorPalette[i] = color.NRGBA64{
-			R: uint16(colors[i].Red),
-			G: uint16(colors[i].Green),
-			B: uint16(colors[i].Blue),
+			R: uint16(sumRed/l),
+			G: uint16(sumGreen/l),
+			B: uint16(sumBlue/l),
 			A: 1,
 		}
 
@@ -74,7 +74,7 @@ func imageToBucket(img image.Image) []Point {
 	for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
 		for x := bounds.Min.X; x < bounds.Max.X; x++ {
 			r, g, b, _ := img.At(x, y).RGBA()
-			out = append(out, Point{x, y, r >> 8, g >> 8, b >> 8})
+			out = append(out, Point{x, y, r, g, b})
 		}
 	}
 
