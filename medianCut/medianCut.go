@@ -50,7 +50,7 @@ func Quant(src image.Image, colors []Point) (image.Image, error) {
 			R: uint16(colors[i].Red),
 			G: uint16(colors[i].Green),
 			B: uint16(colors[i].Blue),
-			A: 0xffff,
+			A: 1,
 		}
 
 		for _, p := range bucket {
