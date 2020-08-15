@@ -47,9 +47,9 @@ func Quant(src image.Image, colors []Point) (image.Image, error) {
 		}
 
 		colorPalette[i] = color.NRGBA64{
-			R: uint16(sumRed/l),
-			G: uint16(sumGreen/l),
-			B: uint16(sumBlue/l),
+			R: uint16(sumRed/l) >> 8,
+			G: uint16(sumGreen/l) >> 8,
+			B: uint16(sumBlue/l) >> 8,
 			A: 1,
 		}
 
